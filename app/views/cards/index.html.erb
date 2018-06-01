@@ -1,19 +1,12 @@
-<div class = "logo">
+<!-- <div class = "logo">
 	<img src = "http://berserk.ru/image/berserk/logo.png">
 </div>
 <div class = "logo2">
 	<img src = "http://berserk.ru/image/data/sins_logo.png">
-</div>
+</div> -->
 
 <div class = "container">
-	<% if @hero %>
-		<div class = "card"><img src=<%= @hero.card_url %>></div>
-	<% end %>
-	<div class = "card"><img src=<%= @rare.card_url %>></div>
-	<% @uncommon.each do |card| %>
-		<div class = "card"><img src=<%= card.card_url %>></div>
-	<% end %>
-	<% @common.each do |card| %>
-		<div class = "card"><img src=<%= card.card_url %>></div>
+	<% @cards.each do |card| %>
+		<div class = "card"><img src = <%= card.card_url %> ></div>
 	<% end %>
 </div>
