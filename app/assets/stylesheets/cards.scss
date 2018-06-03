@@ -6,6 +6,12 @@ body {
 	background-image: url(http://wallpoper.com/images/00/31/33/51/black-background_00313351.jpg);
 }
 
+.card-container {
+	grid-template-columns: 200px 200px 200px 200px 200px auto;
+	grid-template-rows: 280px 280px 280px 280px;
+	display: grid;
+}
+
 .logo {
 	width: 200px;
 	height: 300px;
@@ -33,14 +39,17 @@ body {
 }
 
 .card {
-	width: 200px;
-	height: 280px;
-	float: left;
-	margin: 10px;
-	box-shadow: 1 1 10px rgba(0,0,0,0.5);
 
 	img {
 		max-width: 100%;
 		max-height: 100%;
 	}
+}
+
+.right-menu {
+	background-color: rgba(0,0,0,0.7);
+	border: 2px solid rgba(0,0,0,0.5);
+	border-radius: 10px;
+	height: 800px;
+	margin-top: 20px;
 }
