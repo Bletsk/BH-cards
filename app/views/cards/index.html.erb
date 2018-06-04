@@ -4,26 +4,38 @@
 <div class = "logo2">
 	<img src = "http://berserk.ru/image/data/sins_logo.png">
 </div> -->
-<div class = 'grid-container card-container'>
+<div class = "fluid-container">
+	<div class = "col-md-2 block"><div class = 'inside-block'>
+		<div class = "logo-container">
+			<img src = "http://berserk.ru/image/berserk/logo.png"/>
+			<img src="http://berserk.ru/image/data/sins_logo.png"/>
+		</div>
+		<button onclick = "generatePack()">Новый бустер</button>
+	</div></div>
+	<div class = "col-md-8 block"><div class = 'inside-block row card-container'>
+		
+	</div></div>
+	<div class = "col-md-2 block"><div class = 'inside-block'>//TEMPLATE//</div></div>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(document).ready( () => {
+		
 		drawCards();
-
-		$('.card').click( () => {
-			$(this).css("opacity", "0");
-		})
 	});
 
 	function drawCards(){
 		$('.card-container').empty();
 		<% @cards.each do |card| %>
-			$('.card-container').append('<div class = "card grid-item" onclick="test(\'<%= card.name %>\')"><img src = <%= card.card_url %> ></div>');
+			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></img</div></div>');
 		<% end %>
 	}
 
-	function test(i){
-		console.log(i);
+	function test(){
+		console.log('test');
+	}
+
+	function generatePack() {
+		location.reload();
 	}
 </script>

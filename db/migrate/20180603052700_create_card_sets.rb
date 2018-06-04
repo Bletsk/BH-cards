@@ -5,6 +5,6 @@ class CreateCardSets < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_reference :card_sets, :cards, index: true
+    add_reference :cards, :card_set, index: true
   end
 end

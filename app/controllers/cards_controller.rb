@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 	def index
 		is_hero_dropped = Random.rand(8) == 0
 
-		set_id = 0
+		set_id = 1
 
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
 
@@ -26,5 +26,7 @@ class CardsController < ApplicationController
 		end
 
 		# render json: @cards
+
+		# render json: card_pull
 	end
 end

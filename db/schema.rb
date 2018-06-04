@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 20180603052700) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "cards_id"
-    t.index ["cards_id"], name: "index_card_sets_on_cards_id"
   end
 
   create_table "cards", force: :cascade do |t|
@@ -32,6 +30,8 @@ ActiveRecord::Schema.define(version: 20180603052700) do
     t.boolean "dropped_from_booster"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "card_set_id"
+    t.index ["card_set_id"], name: "index_cards_on_card_set_id"
   end
 
 end
