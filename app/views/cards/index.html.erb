@@ -10,11 +10,14 @@
 			<img src = "http://berserk.ru/image/berserk/logo.png"/>
 			<img src="http://berserk.ru/image/data/sins_logo.png"/>
 		</div>
-		<button onclick = "generatePack()">Новый бустер</button>
+		<!--button onclick = "generatePack()">Новый бустер</button-->
+		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "generate_btn" %>
 	</div></div>
-	<div class = "col-md-8 block"><div class = 'inside-block row card-container'>
-		
-	</div></div>
+	<div class = "col-md-8 block">
+		<div class = 'inside-block row card-container'>
+		</div>
+		<div class = 'zoom-card'></div>
+	</div>
 	<div class = "col-md-2 block"><div class = 'inside-block'>//TEMPLATE//</div></div>
 </div>
 
@@ -22,20 +25,33 @@
 	$(document).ready( () => {
 		
 		drawCards();
+
+		$( () => {
+			$('.card').hover( () => {
+				$(this).addClass('hidden');
+			// let src = $(this).find('img').attr('src');
+				console.log('hover');
+			// $('.zoom-card').empty();
+			// $('.zoom-card').append("<img src = '" + src + "'/>");
+			// $('.zoom-card').show();
+			}, () => {
+				$(this).show();
+				console.log('hover off');
+			// 	$('.zoom-card').hide();
+			});
+		});
 	});
 
 	function drawCards(){
 		$('.card-container').empty();
 		<% @cards.each do |card| %>
-			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></img</div></div>');
+			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
 		<% end %>
 	}
 
+	
+
 	function test(){
 		console.log('test');
-	}
-
-	function generatePack() {
-		location.reload();
 	}
 </script>

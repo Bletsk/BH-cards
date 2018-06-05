@@ -1,0 +1,6 @@
+// alert("Всего в сете <%= @i %> карт.");
+
+$('.card-container').empty();
+<% @cards.each do |card| %>
+	$('.card-container').append('<div class = "col card" onmouseenter = "console.log(\'Hover event\')"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
+<% end %>
