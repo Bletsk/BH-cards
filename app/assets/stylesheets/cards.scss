@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$glow-color: #F0E68C;
+
 body {
 	background-image: url(https://pp.userapi.com/c844617/v844617643/35eb8/vDXtHDrOa1g.jpg);
 	background-size: cover;
@@ -50,9 +52,31 @@ body {
 	padding: 5px;
 }
 
+.card-img:hover {
+	box-shadow: 0px 0px 15px $glow-color;
+	cursor: pointer;
+	animation-duration: 1.5s;
+	animation-name: slidein;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes slidein {
+  from {
+    box-shadow: 0px 0px 25px $glow-color;
+  }
+  
+  to {
+   box-shadow: 0px 0px 10px $glow-color;
+ }
+}
+
 .card-img {
+	border-radius: 16px;
 	width: 100%;
 	height: auto;
+	transition: box-shadow 0.2s ease-in-out;
 }
 
 .hidden {
