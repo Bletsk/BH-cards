@@ -12,46 +12,128 @@
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
 		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "generate_btn" %>
+		<a onclick = 'emptyCardlist()' class = 'generate_btn'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
 		<div class = 'inside-block row card-container'>
 		</div>
-		<div class = 'zoom-card'></div>
 	</div>
-	<div class = "col-md-2 block"><div class = 'inside-block'>//TEMPLATE//</div></div>
+	<div class = "col-md-2 block">
+		<div class = 'inside-block card-list'>
+			<span class = 'card-list__title'>
+				Моя колода
+			</span>
+			<div class = 'card-list__list-container'>
+				<ul class = 'card-list__list'>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
+<div class = 'zoom-card'></div>
 
 <script type="text/javascript">
-	$(document).ready( () => {
-		
-		drawCards();
+	let cards = [];
+	let pickedCards = [];
 
-		$( () => {
-			$('.card').hover( () => {
-				$(this).addClass('hidden');
-			// let src = $(this).find('img').attr('src');
-				console.log('hover');
+	$(document).ready( () => {
+		// for(let i = 0; i < 50; i++){
+		// 	$('.card-list__list').append('<li>test</li>');
+		// }
+		
+		// drawCards();
+
 			// $('.zoom-card').empty();
 			// $('.zoom-card').append("<img src = '" + src + "'/>");
 			// $('.zoom-card').show();
-			}, () => {
-				$(this).show();
-				console.log('hover off');
-			// 	$('.zoom-card').hide();
-			});
-		});
 	});
 
 	function drawCards(){
 		$('.card-container').empty();
 		<% @cards.each do |card| %>
-			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
+			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "pick_card(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
 		<% end %>
+
+
 	}
 
-	
+	function pick_card(card){
+		let _card = {
+			name: card.name,
+			cost: card.cost,
+			amount: 1,
+			img_url: card.img_url
+		}
+		pickedCards.push(_card);
+		formCardList();
+	}
 
-	function test(){
-		console.log('test');
+	function formCardList(){
+		$('.card-list__list').empty();
+
+		pickedCards.sort( (a, b) => {
+			if(a.cost > b.cost) return 1;
+			if(a.cost < b.cost) return -1;
+
+			if(a.name > b.name) return 1;
+			if(a.name < b.name) return -1;
+   		});
+
+   		let finalList = [];
+
+   		for(let i = 0; i < pickedCards.length; i++){
+   			card = pickedCards[i];
+
+   			if(finalList.length == 0) {
+   				finalList.push(card);
+   			} else {
+   				let lastItem = finalList[finalList.length - 1];
+
+	   			if(lastItem.name == card.name){
+	   				lastItem.amount += card.amount;
+	   			} else {
+	   				finalList.push(card);
+	   			}
+   			}
+   		}
+
+   		pickedCards = finalList;
+
+   		pickedCards.forEach( (card) => {
+   			let amount = (card.amount && card.amount > 1) ? " x" + card.amount : ""
+   			$('.card-list__list').append('<li class = "card-list__item" onmouseenter = "showCardPreview(\'' + card.img_url + '\')" onmouseout = "hideZoomCard()"><div class = "card-list__item-name">' + card.name + '</div><div class = "card-list__item-amount">' + amount + '</div><div class = "card-list__item-cost">' + card.cost + '</div></li>');
+   		});
+
+	}
+
+	function showCards(){
+		console.log(cards);
+	}
+
+	function showCardPreview(url){
+		// console.log(url);
+		posx = window.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		if(posx > window.innerWidth * 2 / 3){
+			posx -= 300;
+		}
+	    posy = window.event.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+	    if(posy > window.innerHeight / 2){
+			posy -= 300;
+		}
+
+		$('.zoom-card').empty();
+		$('.zoom-card').append("<img src = '" + url + "'/>");
+		$('.zoom-card').css( 'top', posy);
+		$('.zoom-card').css( 'left', posx);
+		$('.zoom-card').show();
+	}
+
+	function emptyCardlist(){
+		pickedCards = [];
+		$('.card-list__list').empty();
+	}
+
+	function hideZoomCard(){
+		$('.zoom-card').hide();
 	}
 </script>

@@ -1,6 +1,15 @@
 // alert("Всего в сете <%= @i %> карт.");
 
+cards = [];
+
 $('.card-container').empty();
-<% @cards.each do |card| %>
-	$('.card-container').append('<div class = "col card" onmouseenter = "console.log(\'Hover event\')"><div class = "card-img" onclick = "test(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
+<% @cards.each_with_index do |card, index| %>
+	cards.push({
+		name: '<%= card.name %>',
+		cost: <%= card.cost %>,
+		img_url: '<%= card.card_url %>'
+	});
+	// $('.card-container').append('<div class = "col card" onmouseenter = "showCardPreview(cards[<%= index %>].img_url)" onmouseout = "hideZoomCard()"><div class = "card-img" onclick = "pick_card(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
+	$('.card-container').append('<div class = "col card" ><div class = "card-img" onclick = "pick_card(cards[<%= index %>])"><img src= <%= card.card_url %> onmouseenter = "showCardPreview(cards[<%= index %>].img_url)" onmouseout = "hideZoomCard()"></div></div>');
+
 <% end %>
