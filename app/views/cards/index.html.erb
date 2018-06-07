@@ -6,13 +6,18 @@
 </div> -->
 <div class = "fluid-container">
 	<div class = "col-md-2 block"><div class = 'inside-block'>
-		<div class = "logo-container">
-			<img src = "http://berserk.ru/image/berserk/logo.png"/>
-			<img src="http://berserk.ru/image/data/sins_logo.png"/>
+		<div class = "logo-container row">
+			<div class = 'logo-block'>
+				<img src = "http://berserk.ru/image/berserk/logo.png"/>
+			</div>
+			<div class = 'logo-block'>
+				<img src="http://berserk.ru/image/data/sins_logo.png"/>	
+			</div>
+			
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
-		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "generate_btn" %>
-		<a onclick = 'emptyCardlist()' class = 'generate_btn'>Очистить колоду</a>
+		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "header-button" %>
+		<a onclick = 'emptyCardlist()' class = 'header-button'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
 		<div class = 'inside-block row card-container'>
