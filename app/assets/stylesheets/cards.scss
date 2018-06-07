@@ -29,6 +29,7 @@ body {
 		background: rgba(0,0,0,.7);
 		border: 1px solid white;
 		border-radius: 16px;
+		margin: 0px;
 		margin-top: 20px;
 		width: 100%;
 		height: 45px;
@@ -187,6 +188,7 @@ img {
 @media (max-width: 992px) {
 	body {
 		overflow-y: auto;
+		background-size: auto 200vh;
 	}
 
 	.logo-block {
@@ -196,9 +198,19 @@ img {
 	}
 
 	.header-button {
-		width: 50%;
-		float: left;
+		max-width: 49%;
+		display: inline-block;
+		// float: left;
 		background: red;
 		box-sizing: border-box;
+		overflow: hidden;
+	}
+
+	.card {
+		width: 33%;
+	}
+
+	.card-list {
+		height: auto;
 	}
 }

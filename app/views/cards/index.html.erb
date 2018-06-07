@@ -13,7 +13,6 @@
 			<div class = 'logo-block'>
 				<img src="http://berserk.ru/image/data/sins_logo.png"/>	
 			</div>
-			
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
 		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "header-button" %>
@@ -116,6 +115,8 @@
 	}
 
 	function showCardPreview(url){
+		if(window.innerWidth <= 992) return;
+
 		// console.log(url);
 		posx = window.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 		if(posx > window.innerWidth * 2 / 3){
