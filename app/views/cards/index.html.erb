@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
-		<%= link_to 'Новый бустер', generate_path(:picked_cards => @picked_cards), remote: true, :class => "header-button" %>
+		<%= link_to 'Новый бустер', generate_path(:set_id => 1), remote: true, :class => "header-button" %>
 		<a onclick = 'emptyCardlist()' class = 'header-button'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
@@ -45,7 +45,6 @@
 
 	$(document).ready( () => {
 		initCards();
-		drawCards();
 
 		// for(let i = 0; i < 50; i++){
 		// 	$('.card-list__list').append('<li>test</li>');
@@ -156,6 +155,8 @@
 			<% end %>
 			packsArray.push(_pack);
 		<% end %>
+
+		drawCards();
 
 		console.log(packsArray);
 	}
