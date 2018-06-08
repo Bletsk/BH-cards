@@ -1,7 +1,10 @@
 class CardsController < ApplicationController
 	def index
-		@cards = generate_pack(1)
-		@picked_cards = 0
+		amount = 8
+		@cards = []
+		for i in 1..amount
+			@cards << generate_pack(1)
+		end
 	end
 
 	def show_cards()
@@ -9,7 +12,7 @@ class CardsController < ApplicationController
 		@cards = generate_pack(1)
 	end
 
-	def generate_pack(set_id, picked_cards = 0)
+	def generate_pack(set_id)
 		is_hero_dropped = Random.rand(8) == 0
 
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
