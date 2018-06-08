@@ -1,8 +1,10 @@
 // alert("Всего в сете <%= @i %> карт.");
 
+packsArray.push(cards);
 cards = [];
 
 $('.card-container').empty();
+
 <% @cards.each_with_index do |card, index| %>
 	cards.push({
 		name: '<%= card.name %>',

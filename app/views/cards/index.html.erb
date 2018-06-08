@@ -6,13 +6,17 @@
 </div> -->
 <div class = "fluid-container">
 	<div class = "col-md-2 block"><div class = 'inside-block'>
-		<div class = "logo-container">
-			<img src = "http://berserk.ru/image/berserk/logo.png"/>
-			<img src="http://berserk.ru/image/data/sins_logo.png"/>
+		<div class = "logo-container row">
+			<div class = 'logo-block'>
+				<img src = "http://berserk.ru/image/berserk/logo.png"/>
+			</div>
+			<div class = 'logo-block'>
+				<img src="http://berserk.ru/image/data/sins_logo.png"/>	
+			</div>
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
-		<%= link_to 'Новый бустер', generate_path(), remote: true, :class => "generate_btn" %>
-		<a onclick = 'emptyCardlist()' class = 'generate_btn'>Очистить колоду</a>
+		<%= link_to 'Новый бустер', generate_path(:picked_cards => @picked_cards), remote: true, :class => "header-button" %>
+		<a onclick = 'emptyCardlist()' class = 'header-button'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
 		<div class = 'inside-block row card-container'>
@@ -35,8 +39,10 @@
 <script type="text/javascript">
 	let cards = [];
 	let pickedCards = [];
+	let packsArray = [];
 
 	$(document).ready( () => {
+
 		// for(let i = 0; i < 50; i++){
 		// 	$('.card-list__list').append('<li>test</li>');
 		// }
@@ -53,8 +59,6 @@
 		<% @cards.each do |card| %>
 			$('.card-container').append('<div class = "col card"><div class = "card-img" onclick = "pick_card(\'<%= card.name %>\')"><img src= <%= card.card_url %> ></div></div>');
 		<% end %>
-
-
 	}
 
 	function pick_card(card){
@@ -111,6 +115,8 @@
 	}
 
 	function showCardPreview(url){
+		if(window.innerWidth <= 992) return;
+
 		// console.log(url);
 		posx = window.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 		if(posx > window.innerWidth * 2 / 3){

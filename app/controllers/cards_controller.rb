@@ -1,19 +1,15 @@
 class CardsController < ApplicationController
 	def index
 		@cards = generate_pack(1)
-
-		# render json: @cards
-
-		# render json: card_pull
+		@picked_cards = 0
 	end
 
-	def show_cards
-		# @i = Card.where("card_set_id = ?", 1).all.length
-
+	def show_cards()
+		p params[:picked_cards]
 		@cards = generate_pack(1)
 	end
 
-	def generate_pack(set_id)
+	def generate_pack(set_id, picked_cards = 0)
 		is_hero_dropped = Random.rand(8) == 0
 
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
