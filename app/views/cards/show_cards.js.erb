@@ -1,18 +1,27 @@
-packsArray = [];
 init_new_pack();
 
 function init_new_pack(){
+	$('.card-list__list').empty();
+	pickedCards = [];
+	packsArray = [];
+	currentPackIndex = 0;
+	currentRound = 0;
 	let _pack;
-	<% @cards.each do |pack| %>
-		_pack = [];
-		<% pack.each do |card| %>
-			_pack.push({
-				name: '<%= card.name %>',
-				cost: <%= card.cost %>,
-				img_url: '<%= card.card_url %>'
-			});
+	let _round;
+	<% @cards.each do |round| %>
+		_round = [];
+		<% round.each do |pack| %>
+			_pack = [];
+			<% pack.each do |card| %>
+				_pack.push({
+					name: '<%= card.name %>',
+					cost: <%= card.cost %>,
+					img_url: '<%= card.card_url %>'
+				});
+			<% end %>
+			_round.push(_pack);
 		<% end %>
-		packsArray.push(_pack);
+		packsArray.push(_round);
 	<% end %>
 
 	drawCards();

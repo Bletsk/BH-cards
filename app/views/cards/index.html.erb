@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<!--button onclick = "generatePack()">Новый бустер</button-->
-		<%= link_to 'Новый бустер', generate_path(:set_id => 1), remote: true, :class => "header-button" %>
+		<%= link_to 'Новый драфт', generate_path(:set_id => 1), remote: true, :class => "header-button" %>
 		<a onclick = 'emptyCardlist()' class = 'header-button'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
@@ -41,7 +41,9 @@
 	let pickedCards = [];
 	let packsArray = [];
 	let currentPackIndex = 0;
+	let currentRound = 0;
 	let packAmount = 8;
+	let maxRounds = 4;
 
 	$(document).ready( () => {
 		initCards();
@@ -59,11 +61,14 @@
 
 	function drawCards(){
 		$('.card-container').empty();
-		packsArray[currentPackIndex].forEach( (card, index) => {
-			let currentCard = 'packsArray[' + currentPackIndex + '][' + index + ']';
+		hideZoomCard();
+
+		if(currentRound >= maxRounds) return;
+
+		packsArray[currentRound][currentPackIndex].forEach( (card, index) => {
+			let currentCard = 'packsArray[' + currentRound + '][' + currentPackIndex + '][' + index + ']';
 			$('.card-container').append('<div class = "col card" ><div class = "card-img" onclick = "pick_card(' + currentCard + ')"><img src= ' + card.img_url + ' onmouseenter = "showCardPreview(' + currentCard + '.img_url)" onmouseout = "hideZoomCard()"></div></div>');
 		});
-
 	}
 
 	//Обработка выбора игроком карты из бустера
@@ -77,21 +82,26 @@
 		pickedCards.push(_card);
 		formCardList();
 
-		let i = packsArray[currentPackIndex].findIndex( (element) => {
+		let i = packsArray[currentRound][currentPackIndex].findIndex( (element) => {
 			return element == card;
 		});
 
-		removeCardFromPack(packsArray[currentPackIndex], i);
+		removeCardFromPack(packsArray[currentRound][currentPackIndex], i);
 		botPicksCard();
 
 		currentPackIndex++;
 		if(currentPackIndex >= 8) currentPackIndex = 0;
+
+		if(packsArray[currentRound][currentPackIndex].length == 0){
+			currentRound++;
+		}
+
 		drawCards();
 	}
 
 	//Алгоритм автоматического пика карт из бустеров
 	function botPicksCard(){
-		packsArray.forEach( (pack, index) => {
+		packsArray[currentRound].forEach( (pack, index) => {
 			if(currentPackIndex == index) return;
 
 			let botPickedCardIndex = Math.random() * pack.length;
@@ -144,16 +154,21 @@
 	function initCards(){
 		packsArray = [];
 		let _pack;
-		<% @cards.each do |pack| %>
-			_pack = [];
-			<% pack.each do |card| %>
-				_pack.push({
-					name: '<%= card.name %>',
-					cost: <%= card.cost %>,
-					img_url: '<%= card.card_url %>'
-				});
+		let _round;
+		<% @cards.each do |round| %>
+			_round = [];
+			<% round.each do |pack| %>
+				_pack = [];
+				<% pack.each do |card| %>
+					_pack.push({
+						name: '<%= card.name %>',
+						cost: <%= card.cost %>,
+						img_url: '<%= card.card_url %>'
+					});
+				<% end %>
+				_round.push(_pack);
 			<% end %>
-			packsArray.push(_pack);
+			packsArray.push(_round);
 		<% end %>
 
 		drawCards();

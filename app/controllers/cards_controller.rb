@@ -1,11 +1,11 @@
 class CardsController < ApplicationController
 	def index
-		@cards = init_generator(1)
+		@cards = init_generator()
 	end
 
 	def show_cards
 		set_id = params[:set_id]
-		@cards = init_generator(set_id)
+		@cards = init_generator([set_id, set_id, set_id, set_id])
 	end
 
 	def generate_pack(set_id)
@@ -35,12 +35,16 @@ class CardsController < ApplicationController
 		return cards
 	end
 
-	def init_generator(set_id)
-		amount = 8
+	def init_generator(set_ids = [1, 1, 1, 1], amountOfPlayers = 8)
 		cards = []
-		for i in 1..amount
-			cards << generate_pack(set_id)
+		set_ids.each do |set_id |
+			_booster = []
+			for i in 1..amountOfPlayers
+				_booster << generate_pack(set_id)
+			end
+			cards << _booster
 		end
+		
 		return cards
 	end
 end
