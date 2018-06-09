@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20180603052700) do
     t.string "rarity"
     t.string "card_url"
     t.string "card_type"
+    t.integer "rate"
     t.integer "cost"
     t.boolean "dropped_from_booster"
     t.datetime "created_at", null: false

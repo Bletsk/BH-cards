@@ -104,13 +104,29 @@
 		packsArray[currentRound].forEach( (pack, index) => {
 			if(currentPackIndex == index) return;
 
-			let botPickedCardIndex = Math.random() * pack.length;
-			console.log(removeCardFromPack(pack, botPickedCardIndex));
+			let botPickedCardIndex;
+
+			for(let i = 5; i > 0; i--){
+				pack.some( (card, _index) => {
+					if(card.rate == i){
+						botPickedCardIndex = _index;
+						return true;
+					}
+					return false;
+				});
+				if(botPickedCardIndex !== undefined) break;
+			}
+			// console.log(botPickedCardIndex);
+
+			// botPickedCardIndex = Math.random() * pack.length;
+			console.log(removeCardFromPack(pack, botPickedCardIndex)[0].name);
 		});
 	}
 
 	function removeCardFromPack(pack, index){
-		return pack.splice(index, 1);
+		let result = pack.splice(index, 1)
+		// console.log(result.name);
+		return result;
 	}
 
 	//Сортировка и вывод списка выбранных игроком карт
@@ -163,7 +179,8 @@
 					_pack.push({
 						name: '<%= card.name %>',
 						cost: <%= card.cost %>,
-						img_url: '<%= card.card_url %>'
+						img_url: '<%= card.card_url %>',
+						rate: <%= card.rate %> 
 					});
 				<% end %>
 				_round.push(_pack);

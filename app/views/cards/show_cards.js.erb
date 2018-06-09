@@ -16,7 +16,8 @@ function init_new_pack(){
 				_pack.push({
 					name: '<%= card.name %>',
 					cost: <%= card.cost %>,
-					img_url: '<%= card.card_url %>'
+					img_url: '<%= card.card_url %>',
+					rate: <%= card.rate %> 
 				});
 			<% end %>
 			_round.push(_pack);
