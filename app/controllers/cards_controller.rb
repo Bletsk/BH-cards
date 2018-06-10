@@ -7,6 +7,7 @@ class CardsController < ApplicationController
 	def show_cards
 		set_id = params[:set_id]
 		@cards = init_generator([set_id, set_id, set_id, set_id])
+		@heroes = getHeroes(set_id)
 	end
 
 	def generate_pack(set_id)
@@ -17,7 +18,7 @@ class CardsController < ApplicationController
 		cards = []
 
 		if is_hero_dropped
-			hero = card_pull.where("card_type = 'hero' AND rarity = 'common'").shuffle.first
+			hero = card_pull.where("card_type = 'hero'").shuffle.first
 			cards << hero
 		end
 
@@ -36,7 +37,7 @@ class CardsController < ApplicationController
 		return cards
 	end
 
-	def init_generator(set_ids = [1, 1, 1, 1], amountOfPlayers = 8)
+	def init_generator(set_ids = [6, 6, 6, 6], amountOfPlayers = 8)
 		cards = []
 		set_ids.each do |set_id |
 			_booster = []
@@ -49,7 +50,7 @@ class CardsController < ApplicationController
 		return cards
 	end
 
-	def getHeroes(set_ids = [1, 1, 1, 1])
+	def getHeroes(set_ids = [6, 6, 6, 6])
 		setHash = {}
 		heroes = []
 		set_ids.each do |set_id|
