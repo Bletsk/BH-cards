@@ -40,10 +40,13 @@
 	let cards = [];
 	let pickedCards = [];
 	let packsArray = [];
+
 	let currentPackIndex = 0;
 	let currentRound = 0;
 	let packAmount = 8;
 	let maxRounds = 4;
+
+	let availableHeroes = [];
 
 	$(document).ready( () => {
 		initCards();
@@ -187,6 +190,15 @@
 			<% end %>
 			packsArray.push(_round);
 		<% end %>
+
+		<% @heroes.each do |hero| %>
+			availableHeroes.push({
+				name: '<%= hero.name %>',
+				img_url: '<%= hero.card_url %>'
+			});
+		<% end %>
+
+		console.log(availableHeroes);
 
 		drawCards();
 

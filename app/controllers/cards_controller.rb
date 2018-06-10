@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
 	def index
 		@cards = init_generator()
+		@heroes = getHeroes()
 	end
 
 	def show_cards
@@ -46,5 +47,29 @@ class CardsController < ApplicationController
 		end
 		
 		return cards
+	end
+
+	def getHeroes(set_ids = [1, 1, 1, 1])
+		setHash = {}
+		heroes = []
+		set_ids.each do |set_id|
+			setHash[set_id] = true
+		end
+		heroes_pull = []
+
+		setHash.each do |key, value|
+			heroes_pull << Card.where("card_set_id = ? AND card_type = 'hero'", key)
+			p key
+			p value
+		end
+
+		heroes_pull.each do |set|
+			set.each do |hero|
+				p hero
+				heroes << hero
+			end
+		end
+
+		return heroes
 	end
 end

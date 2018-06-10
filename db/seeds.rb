@@ -204,11 +204,21 @@ Card.create(name: "Идол ужаса", rarity: "uncommon", card_url: "http://b
 Card.create(name: "Разбудить тролля", rarity: "uncommon", card_url: "http://berserk.ru/image/data/Берсерк/multi8copy.png", card_type: "creature", dropped_from_booster: true, card_set_id: set.id, rate: 4, cost: 3)
 
 p "Герои"
-Card.create(name: "Борсан", rarity: "common", card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/forest4copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
-Card.create(name: "Зыхра", rarity: "common", card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/stepi13_copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
-Card.create(name: "Люминар", rarity: "common", card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/dark8-copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
-Card.create(name: "Рык", rarity: "common", card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/gorii15-copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
-Card.create(name: "Хэсодэ", rarity: "common", card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/swamp23_copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Борсан", rarity: "common", card_url: "http://berserk.ru/image/data/Берсерк/forest4copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Зыхра", rarity: "common", card_url: "http://berserk.ru/image/data/Берсерк/stepi13_copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Люминар", rarity: "common", card_url: "http://berserk.ru/image/data/Берсерк/dark8-copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Рык", rarity: "common", card_url: "http://berserk.ru/image/data/Берсерк/gorii15-copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Хэсодэ", rarity: "common", card_url: "http://berserk.ru/image/data/Берсерк/swamp23_copy.png", card_type: "hero", dropped_from_booster: true, card_set_id: set.id, rate: 1, cost: 0)
+
+Card.create(name: "Аарлин Аластар", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/forestcopy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Грапли", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/swamp8copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Дагдар", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/gorii6copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Драккара", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/stepi9copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Мастер Алвалинд", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/pf-copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Пирс", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/swamp8copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Хиан", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/pf2-copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Хундер Ульвер", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/forest20copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
+Card.create(name: "Элевера", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/dark24copy.png", card_type: "hero", dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
 
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: "creature", dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: "creature", dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
