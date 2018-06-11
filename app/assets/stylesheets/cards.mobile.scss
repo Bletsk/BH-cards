@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
+body {
+	overflow: hidden;
+}
+
 .mobile-view {
 	background-color: #ECECEC;
 	width: 100vw;
@@ -121,11 +125,17 @@
 		height: auto;
 		padding: 1vh;
 		margin: 0;
+		opacity: 0.2;
+		transition: opacity 0.4s;
 
 		img {
 			width: 100%;
 			height: auto;
 		}
+	}
+
+	&__card.is-selected {
+		opacity: 1;
 	}
 
 	&__card-list {
