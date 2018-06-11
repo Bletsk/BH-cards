@@ -7,7 +7,7 @@ class CardsController < ApplicationController
 	def show_cards
 		set_id = params[:set_id]
 		@cards = init_generator([set_id, set_id, set_id, set_id])
-		@heroes = getHeroes(set_id)
+		# @heroes = getHeroes(set_id)
 	end
 
 	def generate_pack(set_id)
