@@ -14,7 +14,7 @@
 			<div class = 'mobile-view__current-booster'>Текущий бустер: <b>1/4</b></div>
 			<div class = 'mobile-view__current-pick'>Текущий пик: <b>1/15</b></div>
 		</div>
-		<div class = "mobile-view__draft-container"></div>
+		<div class = "mobile-view__draft-container js-flickity"></div>
 		<div class = 'mobile-view__deck-container'>
 			<ul class = 'mobile-view__card-list'></ul>
 		</div>
@@ -40,12 +40,13 @@
 	let availableHeroes = [];
 
 	$(document).ready( () => {
+		let viewportHeight = $('.mobile-view').outerHeight();
+		$('.mobile-view').css({ height: viewportHeight });
 		initCards();
-
-		
 	});
 
 	function drawCards(){
+		$('.mobile-view__draft-container').flickity('destroy');
 		$('.mobile-view__draft-container').empty();
 		hideZoomCard();
 
@@ -55,9 +56,10 @@
 			let currentCard = 'packsArray[' + currentRound + '][' + currentPackIndex + '][' + index + ']';
 			$('.mobile-view__draft-container').append('<div class = "mobile-view__card" ><div class = "card-img" onclick = "pick_card(' + currentCard + ')"><img src= ' + card.img_url + '></div></div>');
 		});
-		makeItSlick();
 
-		$('.mobile-view__current-pick').html('Текущий пик: <b>' + ( 16 - packsArray[currentRound][currentPackIndex].length) + '/15</b>')
+		$('.mobile-view__current-pick').html('Текущий пик: <b>' + ( 16 - packsArray[currentRound][currentPackIndex].length) + '/15</b>');
+
+		flickIt();
 	}
 
 	//Обработка выбора игроком карты из бустера
@@ -85,7 +87,6 @@
 			currentRound++;
 			$('.mobile-view__current-booster').html('Текущий бустер: <b>' + (currentRound + 1) + '/4</b>')
 		}
-		$('.mobile-view__draft-container').slick('unslick');
 
 		drawCards();
 	}
@@ -187,6 +188,7 @@
 		<% end %>
 
 		console.log(availableHeroes);
+		$('.mobile-view__draft-container').flickity();
 
 		drawCards();
 
@@ -226,12 +228,11 @@
 		$('.mobile-view__hero-container').show();
 	}
 
-	// Настройки Slick
-	function makeItSlick(){
-		$('.mobile-view__draft-container').slick({
-			centerMode: true,
-			centerPadding: '8vw',
-			slidesToShow: 1,
+	function flickIt(){
+		$('.mobile-view__draft-container').flickity({
+			wrapAround: true,
+			imagesLoaded: true,
+			prevNextButtons: false,
 		});
 	}
 

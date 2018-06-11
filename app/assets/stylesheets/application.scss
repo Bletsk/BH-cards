@@ -15,7 +15,6 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "slick";
-@import 'slick-theme';
+@import "flickity";
 @import "cards";
 @import "cards.mobile";
