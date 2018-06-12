@@ -9,22 +9,27 @@
 		</div>
 		<div class = 'mobile-view__menu-icon' onclick = "alert('Функция еще в разработке!')"><%= image_tag "menu-button.png"%></div>
 	</div>
-	<div class = "mobile-view__body">
-		<div class = 'mobile-view__status'>
-			<div class = 'mobile-view__current-booster'>Текущий бустер: <b>1/4</b></div>
-			<div class = 'mobile-view__current-pick'>Текущий пик: <b>1/15</b></div>
-		</div>
-		<div class = "mobile-view__draft-container js-flickity"></div>
-		<div class = 'mobile-view__deck-container'>
-			<ul class = 'mobile-view__card-list'></ul>
-		</div>
-		<div class = 'mobile-view__hero-container'></div>
-	</div>
 	<div class = "mobile-view__footer">
 		<div id = 'footer-tab-0' class = "mobile-view__footer-tab active-tab" onclick = "selectDraftTab()"><span>Драфт</span></div>
 		<div id = 'footer-tab-1' class = "mobile-view__footer-tab" onclick = "selectDeckTab()"><span>Колода</span></div>
 		<div id = 'footer-tab-2' class = "mobile-view__footer-tab" onclick = "selectHeroTab()"><span>Герои</span></div>
 	</div>
+	<div class = "mobile-view__body">
+		<div class = 'mobile-view__status'>
+			<div class = 'mobile-view__current-booster'>Текущий бустер: <b>1/4</b></div>
+			<div class = 'mobile-view__current-pick'>Текущий пик: <b>1/15</b></div>
+			<div class = 'mobile-view__pick-help'>(нажмите на изображение карты, чтобы взять ее в колоду)</div>
+		</div>
+		<div class = "mobile-view__draft-container">
+			<div class = 'mobile-view__draft-main'></div>
+			<div class = 'mobile-view__draft-nav'></div>
+		</div>
+		<div class = 'mobile-view__deck-container'>
+			<ul class = 'mobile-view__card-list'></ul>
+		</div>
+		<div class = 'mobile-view__hero-container'></div>
+	</div>
+	
 </div>
 
 <script type="text/javascript">
@@ -46,15 +51,18 @@
 	});
 
 	function drawCards(){
-		$('.mobile-view__draft-container').flickity('destroy');
-		$('.mobile-view__draft-container').empty();
+		$('.mobile-view__draft-main').flickity('destroy');
+		$('.mobile-view__draft-main').empty();
+		$('.mobile-view__draft-nav').flickity('destroy');
+		$('.mobile-view__draft-nav').empty();
 		hideZoomCard();
 
 		if(currentRound >= maxRounds) return;
 
 		packsArray[currentRound][currentPackIndex].forEach( (card, index) => {
 			let currentCard = 'packsArray[' + currentRound + '][' + currentPackIndex + '][' + index + ']';
-			$('.mobile-view__draft-container').append('<div class = "mobile-view__card" ><div class = "card-img" onclick = "pick_card(' + currentCard + ')"><img src= ' + card.img_url + '></div></div>');
+			$('.mobile-view__draft-main').append('<div class = "mobile-view__card" ><div class = "card-img" onclick = "pick_card(' + currentCard + ')"><img src= ' + card.img_url + '></div></div>');
+			$('.mobile-view__draft-nav').append('<div class = "mobile-view__nav-card" ><div class = "card-img"><img src= ' + card.img_url + '></div></div>');
 		});
 
 		$('.mobile-view__current-pick').html('Текущий пик: <b>' + ( 16 - packsArray[currentRound][currentPackIndex].length) + '/15</b>');
@@ -188,9 +196,11 @@
 		<% end %>
 
 		console.log(availableHeroes);
-		$('.mobile-view__draft-container').flickity();
+		$('.mobile-view__draft-main').flickity();
+		$('.mobile-view__draft-nav').flickity();
 
 		drawCards();
+		setUpHeroList();
 
 		console.log(packsArray);
 	}
@@ -225,15 +235,38 @@
 		$('#footer-tab-2').toggleClass('active-tab');
 		$('.mobile-view__draft-container').hide();
 		$('.mobile-view__deck-container').hide();
-		$('.mobile-view__hero-container').show();
+		$('.mobile-view__hero-container').show().flickity('resize');
 	}
 
 	function flickIt(){
-		$('.mobile-view__draft-container').flickity({
+		$('.mobile-view__draft-main').flickity({
 			wrapAround: true,
 			imagesLoaded: true,
 			prevNextButtons: false,
+			pageDots: false
 		});
+
+		$('.mobile-view__draft-nav').flickity({
+			imagesLoaded: true,
+			prevNextButtons: false,
+			asNavFor: '.mobile-view__draft-main',
+			// contain: true,
+			pageDots: false
+		});
+	}
+
+	function setUpHeroList(){
+		availableHeroes.forEach( (hero) => {
+			$('.mobile-view__hero-container').append('<div class = "mobile-view__card" ><div class = "card-img""><img src= ' + hero.img_url + '></div></div>');
+		});
+		console.log('setting up some heroes');
+		$('.mobile-view__hero-container').flickity({
+			wrapAround: true,
+			imagesLoaded: true,
+			prevNextButtons: false,
+			pageDots: false
+		});
+		
 	}
 
 </script>
