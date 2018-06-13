@@ -206,8 +206,25 @@ body {
 		pointer-events: none;
 		font-size: 2.5vh;
 	}
+
+	&__menu {
+		top: 10vh;
+		left: 0px;
+		width: 100vw;
+		position: absolute;
+		background: #fff;
+		height: 0vh;
+		transition: height 0.3s;
+		overflow: hidden;
+		font-size: 3vh;
+	}
 }
 
 .active-tab {
 	background-color: #ECECEC;
+}
+
+.menu-opened {
+	// width: 100vw;
+	height: 90vh;
 }

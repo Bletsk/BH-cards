@@ -5,12 +5,14 @@ class CardsController < ApplicationController
 	end
 
 	def show_cards
-		set_id = params[:set_id]
+		set_id = params[:set]
 		@cards = init_generator([set_id, set_id, set_id, set_id])
-		# @heroes = getHeroes(set_id)
+		@heroes = getHeroes([set_id, set_id, set_id, set_id])
 	end
 
-	def generate_pack(set_id)
+	def generate_pack
+		set_id = params[:set] || 6
+
 		is_hero_dropped = Random.rand(8) == 0
 
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
@@ -42,7 +44,7 @@ class CardsController < ApplicationController
 		set_ids.each do |set_id |
 			_booster = []
 			for i in 1..amountOfPlayers
-				_booster << generate_pack(set_id)
+				_booster << generate_pack
 			end
 			cards << _booster
 		end

@@ -7,7 +7,7 @@
 			<div class = 'mobile-view__title'>Берсерк.Герои</div>
 			<div class = 'mobile-view__title-small'>Симулятор драфта</div>
 		</div>
-		<div class = 'mobile-view__menu-icon' onclick = "alert('Функция еще в разработке!')"><%= image_tag "menu-button.png"%></div>
+		<div class = 'mobile-view__menu-icon' onclick = "toggleMenu()"><%= image_tag "menu-button.png"%></div>
 	</div>
 	<div class = "mobile-view__footer">
 		<div id = 'footer-tab-0' class = "mobile-view__footer-tab active-tab" onclick = "selectDraftTab()"><span>Драфт</span></div>
@@ -28,8 +28,15 @@
 			<ul class = 'mobile-view__card-list'></ul>
 		</div>
 		<div class = 'mobile-view__hero-container'></div>
+		
 	</div>
-	
+	<div class = 'mobile-view__menu'>
+		<%= form_tag("/cards/generate_cards", method: "get", remote: true) do %>
+			<%= label_tag(:set, "Сет:") %>
+			<%= select_tag(:set, options_for_select([["Рожденные Бурей", 5],["Грехи Прошлого", 6]])) %>
+			<%= submit_tag("OK") %>
+		<% end %>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -55,7 +62,6 @@
 		$('.mobile-view__draft-main').empty();
 		$('.mobile-view__draft-nav').flickity('destroy');
 		$('.mobile-view__draft-nav').empty();
-		hideZoomCard();
 
 		if(currentRound >= maxRounds) return;
 
@@ -180,7 +186,7 @@
 						name: '<%= card.name %>',
 						cost: <%= card.cost %>,
 						img_url: '<%= card.card_url %>',
-						rate: <%= card.rate %> 
+						rate: <%= card.rate %>
 					});
 				<% end %>
 				_round.push(_pack);
@@ -210,22 +216,22 @@
 		$('.card-list__list').empty();
 	}
 
-	function hideZoomCard(){
-		$('.zoom-card').hide();
-	}
-
 	function selectDraftTab(){
 		$('.active-tab').toggleClass('active-tab');
 		$('#footer-tab-0').toggleClass('active-tab');
 		$('.mobile-view__draft-container').show();
 		$('.mobile-view__deck-container').hide();
 		$('.mobile-view__hero-container').hide();
+		$('.mobile-view__pick-help').show();
+		$('.mobile-view__draft-nav').show().flickity('resize');
+		$('.mobile-view__draft-main').show().flickity('resize');
 	}
 
 	function selectDeckTab(){
 		$('.active-tab').toggleClass('active-tab');
 		$('#footer-tab-1').toggleClass('active-tab');
 		$('.mobile-view__draft-container').hide();
+		$('.mobile-view__pick-help').hide();
 		$('.mobile-view__deck-container').show();
 		$('.mobile-view__hero-container').hide();
 	}
@@ -234,6 +240,7 @@
 		$('.active-tab').toggleClass('active-tab');
 		$('#footer-tab-2').toggleClass('active-tab');
 		$('.mobile-view__draft-container').hide();
+		$('.mobile-view__pick-help').hide();
 		$('.mobile-view__deck-container').hide();
 		$('.mobile-view__hero-container').show().flickity('resize');
 	}
@@ -256,17 +263,24 @@
 	}
 
 	function setUpHeroList(){
+		console.log(availableHeroes);
+		$('.mobile-view__hero-container').flickity('destroy');
+		$('.mobile-view__hero-container').empty();
 		availableHeroes.forEach( (hero) => {
 			$('.mobile-view__hero-container').append('<div class = "mobile-view__card" ><div class = "card-img""><img src= ' + hero.img_url + '></div></div>');
 		});
-		console.log('setting up some heroes');
 		$('.mobile-view__hero-container').flickity({
 			wrapAround: true,
 			imagesLoaded: true,
 			prevNextButtons: false,
 			pageDots: false
 		});
-		
+	}
+
+	function toggleMenu(){
+		console.log('menu toggled');
+		// console.log(flkty.selectedIndex);
+		$('.mobile-view__menu').toggleClass('menu-opened');
 	}
 
 </script>
