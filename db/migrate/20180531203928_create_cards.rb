@@ -4,7 +4,6 @@ class CreateCards < ActiveRecord::Migration[5.1]
     		t.string :name
     		t.string :rarity
     		t.string :card_url
-    		t.string :card_type
         t.integer :rate
     		t.integer :cost
         t.boolean :dropped_from_booster

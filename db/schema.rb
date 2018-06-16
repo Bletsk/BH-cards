@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603052700) do
+ActiveRecord::Schema.define(version: 20180616215203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,37 @@ ActiveRecord::Schema.define(version: 20180603052700) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "card_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.string "rarity"
     t.string "card_url"
-    t.string "card_type"
     t.integer "rate"
     t.integer "cost"
     t.boolean "dropped_from_booster"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "card_set_id"
+    t.bigint "card_type_id"
     t.index ["card_set_id"], name: "index_cards_on_card_set_id"
+    t.index ["card_type_id"], name: "index_cards_on_card_type_id"
+  end
+
+  create_table "cards_elements", id: false, force: :cascade do |t|
+    t.bigint "element_id", null: false
+    t.bigint "card_id", null: false
+    t.index ["card_id", "element_id"], name: "index_cards_elements_on_card_id_and_element_id"
+  end
+
+  create_table "elements", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
