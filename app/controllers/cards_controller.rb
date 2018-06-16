@@ -2,22 +2,24 @@ class CardsController < ApplicationController
 	def index
 		@cards = init_generator()
 		@heroes = getHeroes()
+		@kek = 2
 	end
 
 	def show_cards
-		set_id = params[:set]
-		@cards = init_generator([set_id, set_id, set_id, set_id])
-		@heroes = getHeroes([set_id, set_id, set_id, set_id])
+		# render json: params[:set]
+		set = params[:set]
+		@cards = init_generator([set[0].to_i, set[1].to_i, set[2].to_i, set[3].to_i])
+		@heroes = getHeroes([set[0].to_i, set[1].to_i, set[2].to_i, set[3].to_i])
 	end
 
-	def generate_pack
-		set_id = params[:set] || 6
+	def generate_pack(set_id = 6)
+
+		cards = []
+		return cards if set_id == 0
 
 		is_hero_dropped = Random.rand(8) == 0
 
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
-
-		cards = []
 
 		if is_hero_dropped
 			hero = card_pull.where("card_type = 'hero'").shuffle.first
@@ -44,7 +46,7 @@ class CardsController < ApplicationController
 		set_ids.each do |set_id |
 			_booster = []
 			for i in 1..amountOfPlayers
-				_booster << generate_pack
+				_booster << generate_pack(set_id)
 			end
 			cards << _booster
 		end

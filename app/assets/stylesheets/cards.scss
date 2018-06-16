@@ -10,6 +10,15 @@ body {
 	overflow:hidden;
 }
 
+.desktop-view {
+	&__header {
+		height: 8vh;
+		padding: 1vh;
+		background-color: #1E273D;
+		color: #FDFDFE;
+	}
+}
+
 .block {
 	// min-height: 100vh;
 	padding: 10px;

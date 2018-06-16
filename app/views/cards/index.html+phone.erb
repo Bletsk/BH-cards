@@ -31,11 +31,30 @@
 		
 	</div>
 	<div class = 'mobile-view__menu'>
-		<%= form_tag("/cards/generate_cards", method: "get", remote: true) do %>
-			<%= label_tag(:set, "Сет:") %>
-			<%= select_tag(:set, options_for_select([["Рожденные Бурей", 5],["Грехи Прошлого", 6]])) %>
-			<%= submit_tag("OK") %>
-		<% end %>
+		<div class = 'mobile-view__menu-block'>
+			<div class = 'mobile-view__menu-block-title'>Новый драфт</div>
+			<div class = 'mobile-view__booster-select-header'>
+				Кол-во бустеров:
+				<select id = "booster_amount_select" class = "mobile-view__new-select">
+					<!-- <option value = "3">3</option> -->
+					<option value = "4" selected="selected">4</option>
+				</select>
+			</div>
+			<%= form_tag("/cards/generate_cards", method: "get", remote: true) do %>
+				<% for i in 0..3 %>
+					<p id = "set_select_block_<%= i %>">
+						<%= i + 1 %>-й бустер:
+						<%= select_tag("set[]", options_for_select([["Рожденные Бурей", 5],["Грехи Прошлого", 6]]), id: "set_select_" + i.to_s, class: "mobile-view__new-select") %>
+					</p>
+				<% end %>
+				<%= submit_tag("OK", class: "mobile-view__new-submit") %>
+			<% end %>
+		</div>
+		<div class = 'mobile-view__menu-block'>
+			<div class = 'mobile-view__menu-block-title'>О программе</div>
+			<p>Версия: <%= ENV['version'] %></p>
+			<p>Автор: <a href = "https://vk.com/id439811490">Сергей Томашевский</a></p>
+		</div>
 	</div>
 </div>
 
@@ -55,7 +74,67 @@
 		let viewportHeight = $('.mobile-view').outerHeight();
 		$('.mobile-view').css({ height: viewportHeight });
 		initCards();
+
+		$('#booster_amount_select').change( () => {
+			switch($("#booster_amount_select").val()){
+				case "3":
+					// console.log(3);
+					$('#set_select_block_3').hide();
+					$('#set_select_3').val(0);
+					break;
+				case "4":
+					$('#set_select_block_3').show();
+					$('#set_select_3').val(5);
+					// console.log(4);
+					break
+				default:
+					console.error('Something went wrong');
+			}
+		});
 	});
+
+	function initCards(){
+		packsArray = [];
+		let _pack;
+		let _round;
+		<% @cards.each do |round| %>
+			_round = [];
+			<% round.each do |pack| %>
+				_pack = [];
+				<% pack.each do |card| %>
+					_pack.push({
+						name: '<%= card.name %>',
+						cost: <%= card.cost %>,
+						img_url: '<%= card.card_url %>',
+						rate: <%= card.rate %>
+					});
+				<% end %>
+				_round.push(_pack);
+			<% end %>
+			packsArray.push(_round);
+		<% end %>
+
+		<% @heroes.each do |hero| %>
+			availableHeroes.push({
+				name: '<%= hero.name %>',
+				img_url: '<%= hero.card_url %>'
+			});
+		<% end %>
+
+		// console.log(availableHeroes);
+		$('.mobile-view__draft-main').flickity();
+		$('.mobile-view__draft-nav').flickity();
+
+		drawCards();
+		setUpHeroList();
+
+		// console.log(packsArray);
+	}
+
+	function finalizeAfterRedraft(){
+		selectDraftTab();
+		toggleMenu();
+	}
 
 	function drawCards(){
 		$('.mobile-view__draft-main').flickity('destroy');
@@ -99,6 +178,10 @@
 
 		if(packsArray[currentRound][currentPackIndex].length == 0){
 			currentRound++;
+			if(currentRound >= maxRounds){
+				selectDeckTab();
+				return;
+			}
 			$('.mobile-view__current-booster').html('Текущий бустер: <b>' + (currentRound + 1) + '/4</b>')
 		}
 
@@ -125,7 +208,8 @@
 			// console.log(botPickedCardIndex);
 
 			// botPickedCardIndex = Math.random() * pack.length;
-			console.log(removeCardFromPack(pack, botPickedCardIndex)[0].name);
+			removeCardFromPack(pack, botPickedCardIndex)[0].name
+			// console.log(removeCardFromPack(pack, botPickedCardIndex)[0].name);
 		});
 	}
 
@@ -173,50 +257,13 @@
    		});
 	}
 
-	function initCards(){
-		packsArray = [];
-		let _pack;
-		let _round;
-		<% @cards.each do |round| %>
-			_round = [];
-			<% round.each do |pack| %>
-				_pack = [];
-				<% pack.each do |card| %>
-					_pack.push({
-						name: '<%= card.name %>',
-						cost: <%= card.cost %>,
-						img_url: '<%= card.card_url %>',
-						rate: <%= card.rate %>
-					});
-				<% end %>
-				_round.push(_pack);
-			<% end %>
-			packsArray.push(_round);
-		<% end %>
-
-		<% @heroes.each do |hero| %>
-			availableHeroes.push({
-				name: '<%= hero.name %>',
-				img_url: '<%= hero.card_url %>'
-			});
-		<% end %>
-
-		console.log(availableHeroes);
-		$('.mobile-view__draft-main').flickity();
-		$('.mobile-view__draft-nav').flickity();
-
-		drawCards();
-		setUpHeroList();
-
-		console.log(packsArray);
-	}
-
 	function emptyCardlist(){
 		pickedCards = [];
 		$('.card-list__list').empty();
 	}
 
 	function selectDraftTab(){
+		if(currentRound >= maxRounds) return;
 		$('.active-tab').toggleClass('active-tab');
 		$('#footer-tab-0').toggleClass('active-tab');
 		$('.mobile-view__draft-container').show();
@@ -263,7 +310,7 @@
 	}
 
 	function setUpHeroList(){
-		console.log(availableHeroes);
+		// console.log(availableHeroes);
 		$('.mobile-view__hero-container').flickity('destroy');
 		$('.mobile-view__hero-container').empty();
 		availableHeroes.forEach( (hero) => {
@@ -278,7 +325,7 @@
 	}
 
 	function toggleMenu(){
-		console.log('menu toggled');
+		// console.log('menu toggled');
 		// console.log(flkty.selectedIndex);
 		$('.mobile-view__menu').toggleClass('menu-opened');
 	}

@@ -4,19 +4,28 @@
 <div class = "logo2">
 	<img src = "http://berserk.ru/image/data/sins_logo.png">
 </div> -->
+<div class = "desktop-view__header">
+	<div class = 'mobile-view__logo-container'>
+		<%= image_tag "logo1.png" %>
+	</div>
+	<div class = 'mobile-view__title-container'>
+		<div class = 'mobile-view__title'>Берсерк.Герои</div>
+		<div class = 'mobile-view__title-small'>Симулятор драфта</div>
+	</div>
+</div>
 <div class = "fluid-container">
 	<div class = "col-md-2 block"><div class = 'inside-block'>
-		<div class = "logo-container row">
+		<!-- <div class = "logo-container row">
 			<div class = 'logo-block'>
 				<img src = "http://berserk.ru/image/berserk/logo.png"/>
 			</div>
 			<div class = 'logo-block'>
 				<img src="http://berserk.ru/image/data/sins_logo.png"/>	
 			</div>
-		</div>
+		</div> -->
 		<!--button onclick = "generatePack()">Новый бустер</button-->
-		<%= link_to 'Драфт Грехи', generate_path(:set_id => 6), remote: true, :class => "header-button" %>
-		<%= link_to 'Драфт Рожденные', generate_path(:set_id => 5), remote: true, :class => "header-button" %>
+		<%= link_to 'Драфт Грехи', generate_path(:set => [6,6,6,6]), remote: true, :class => "header-button" %>
+		<%= link_to 'Драфт Рожденные', generate_path(:set => [5,5,5,5]), remote: true, :class => "header-button" %>
 		<a onclick = 'emptyCardlist()' class = 'header-button'>Очистить колоду</a>
 	</div></div>
 	<div class = "col-md-8 block">
@@ -62,6 +71,49 @@
 			// $('.zoom-card').append("<img src = '" + src + "'/>");
 			// $('.zoom-card').show();
 	});
+
+	function initCards(){
+		packsArray = [];
+		let _pack;
+		let _round;
+		<% @cards.each do |round| %>
+			_round = [];
+			<% round.each do |pack| %>
+				_pack = [];
+				<% pack.each do |card| %>
+					_pack.push({
+						name: '<%= card.name %>',
+						cost: <%= card.cost %>,
+						img_url: '<%= card.card_url %>',
+						rate: <%= card.rate %> 
+					});
+				<% end %>
+				_round.push(_pack);
+			<% end %>
+			packsArray.push(_round);
+		<% end %>
+
+		<% @heroes.each do |hero| %>
+			availableHeroes.push({
+				name: '<%= hero.name %>',
+				img_url: '<%= hero.card_url %>'
+			});
+		<% end %>
+
+		console.log(availableHeroes);
+
+		drawCards();
+
+		console.log(packsArray);
+	}
+
+	function setUpHeroList(){
+		console.warn("PLACEHOLDER");
+	}
+
+	function finalizeAfterRedraft(){
+		console.warn("PLACEHOLDER");
+	}
 
 	function drawCards(){
 		$('.card-container').empty();
@@ -169,41 +221,6 @@
    			let amount = (card.amount && card.amount > 1) ? " x" + card.amount : ""
    			$('.card-list__list').append('<li class = "card-list__item" onmouseenter = "showCardPreview(\'' + card.img_url + '\')" onmouseout = "hideZoomCard()"><div class = "card-list__item-name">' + card.name + '</div><div class = "card-list__item-amount">' + amount + '</div><div class = "card-list__item-cost">' + card.cost + '</div></li>');
    		});
-	}
-
-	function initCards(){
-		packsArray = [];
-		let _pack;
-		let _round;
-		<% @cards.each do |round| %>
-			_round = [];
-			<% round.each do |pack| %>
-				_pack = [];
-				<% pack.each do |card| %>
-					_pack.push({
-						name: '<%= card.name %>',
-						cost: <%= card.cost %>,
-						img_url: '<%= card.card_url %>',
-						rate: <%= card.rate %> 
-					});
-				<% end %>
-				_round.push(_pack);
-			<% end %>
-			packsArray.push(_round);
-		<% end %>
-
-		<% @heroes.each do |hero| %>
-			availableHeroes.push({
-				name: '<%= hero.name %>',
-				img_url: '<%= hero.card_url %>'
-			});
-		<% end %>
-
-		console.log(availableHeroes);
-
-		drawCards();
-
-		console.log(packsArray);
 	}
 
 	function showCards(){

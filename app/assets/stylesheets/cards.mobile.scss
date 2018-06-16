@@ -217,6 +217,48 @@ body {
 		transition: height 0.3s;
 		overflow: hidden;
 		font-size: 3vh;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+
+	&__menu-block {
+		position: relative;
+		margin: 2vh;
+		margin-top: 3vh;
+		padding: 2vh;
+		border: 2px solid rgba(0,0,0,.5);
+		border-radius: 16px;
+	}
+
+	&__menu-block-title {
+		padding: 0 1vh;
+		background: #fff;
+		color: rgba(0,0,0,.5);
+		font-weight: bold;
+		font-size: 2.5vh;
+		position: absolute;
+		top: -2vh;
+		left: 2vh;
+	}
+
+	&__new-submit {
+		width: 100%;
+		margin-top: 1.5vh;
+		padding: 1.5vh;
+		background: -webkit-linear-gradient(#cb7433, #F0BE83);
+		color: #fff;
+		border: none;
+		border-radius: 3vh;
+	}
+
+	&__booster-select-header {
+		margin-bottom: 2vh;
+	}
+
+	&__new-select {
+		float: right;
+		min-width: 45vw;
+		display: inline-block;
+		text-align-last:center;
 	}
 }
 
