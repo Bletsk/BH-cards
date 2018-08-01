@@ -22,7 +22,8 @@ class CardsController < ApplicationController
 		card_pull = Card.where("card_set_id = ? AND dropped_from_booster = true", set_id)
 
 		if is_hero_dropped
-			hero = card_pull.where("card_type.name = 'Герой'").shuffle.first
+			hero = card_pull.joins(:card_types).where(:name => "Герой")
+			# hero = card_pull.where("card_type.name = 'Герой'").shuffle.first
 			cards << hero
 		end
 
@@ -63,7 +64,7 @@ class CardsController < ApplicationController
 		heroes_pull = []
 
 		setHash.each do |key, value|
-			heroes_pull << Card.where("card_set_id = ? AND card_type = 'hero'", key)
+			# heroes_pull << Card.where("card_set_id = ? AND card_type = 'hero'", key)
 			p key
 			p value
 		end
