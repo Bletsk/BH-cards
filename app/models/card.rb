@@ -1,8 +1,9 @@
 class Card < ApplicationRecord
 	belongs_to :card_set
 	belongs_to :card_type
-  belongs_to :card_rarity
+ 	belongs_to :card_rarity
 	has_and_belongs_to_many :elements
+	has_and_belongs_to_many :card_classes
 	# after_initialize :init
 
 	# def init
