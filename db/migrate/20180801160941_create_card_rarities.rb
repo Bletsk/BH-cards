@@ -4,7 +4,7 @@ class CreateCardRarities < ActiveRecord::Migration[5.1]
       t.string :name
     end
 
-    create_table :card_class do |t|
+    create_table :card_classes do |t|
       t.string :name
     end
 

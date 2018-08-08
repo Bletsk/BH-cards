@@ -15,6 +15,17 @@ ActiveRecord::Schema.define(version: 20180801160941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "card_classes", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "card_classes_cards", id: false, force: :cascade do |t|
+    t.bigint "card_class_id"
+    t.bigint "card_id"
+    t.index ["card_class_id"], name: "index_card_classes_cards_on_card_class_id"
+    t.index ["card_id"], name: "index_card_classes_cards_on_card_id"
+  end
+
   create_table "card_rarities", force: :cascade do |t|
     t.string "name"
   end
@@ -35,6 +46,8 @@ ActiveRecord::Schema.define(version: 20180801160941) do
     t.integer "cost", default: 0
     t.integer "attack", default: 0
     t.integer "health", default: 0
+    t.string "card_text", default: ""
+    t.string "flavour_text", default: ""
     t.float "rate", default: 2.5
     t.boolean "dropped_from_booster", default: false
     t.datetime "created_at", null: false
