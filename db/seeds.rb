@@ -51,8 +51,18 @@ giant = CardClass.create(name: "Великан")
 potion = CardClass.create(name: "Зелье")
 sphere = CardClass.create(name: "Сфера")
 krongchild = CardClass.create(name: "Дитя Кронга")
-
-
+artifact = CardClass.create(name: "Артефакт")
+troll = CardClass.create(name: "Тролль")
+podzemnik = CardClass.create(name: "Подземник")
+arhaalit = CardClass.create(name: "Архаалит")
+akvanit = CardClass.create(name: "Акванит")
+undead = CardClass.create(name: "Нежить")
+toadan = CardClass.create(name: "Тоа-дан")
+golem = CardClass.create(name: "Голем")
+worg = CardClass.create(name: "Ворг")
+gnom = CardClass.create(name: "Гном")
+yordling = CardClass.create(name: "Йордлинг")
+linung = CardClass.create(name: "Линунг")
 
 # p "[Время Героев]"
 # CardSet.create(name: "Время Героев")

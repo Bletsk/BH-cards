@@ -1,8 +1,30 @@
 class CardsController < ApplicationController
 	def index
-		@cards = init_generator()
-		@heroes = getHeroes()
-		@kek = 2
+		@cards = []
+		@cards << Card.joins(:card_rarity).where(
+			card_set_id: 1,
+			dropped_from_booster: true,
+			card_rarity: CardRarity.find_by(name: Random.rand(8) == 0 ? "ultra" : "rare")
+		).shuffle.first
+		@cards << Card.where(
+			card_set_id: 1,
+			dropped_from_booster: true,
+			card_rarity: CardRarity.find_by(name: "uncommon")
+		).shuffle.first(3)
+		@cards << Card.where(
+			card_set_id: 1,
+			dropped_from_booster: true,
+			card_rarity: CardRarity.find_by(name: "common")
+		).shuffle.first(11)
+
+		@cards = @cards.flatten
+		# for i in 1..4 do
+			# @cards = @cards.shuffle.first(15)
+		# end
+		# render json: @cards
+		# @cards = init_generator()
+		# @heroes = getHeroes()
+		# @kek = 2
 	end
 
 	def show_cards
