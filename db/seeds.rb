@@ -661,6 +661,10 @@ Card.create(name: "Хиан", rarity: "ultra", card_url: "http://berserk.ru/imag
 Card.create(name: "Хундер Ульвер", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/forest20copy.png", card_type: hero, dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
 Card.create(name: "Элевера", rarity: "ultra", card_url: "http://berserk.ru/image/data/Берсерк/dark24copy.png", card_type: hero, dropped_from_booster: false, card_set_id: set.id, rate: 1, cost: 0)
 
+# Рожденные Бурей
+p "[Расцвет Технологий]"
+set = CardSet.create(name: "Расцвет Технологий")
+
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
