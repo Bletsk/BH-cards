@@ -665,6 +665,147 @@ Card.create(name: "Элевера", rarity: "ultra", card_url: "http://berserk.r
 p "[Расцвет Технологий]"
 set = CardSet.create(name: "Расцвет Технологий")
 
+Card.create(
+	name: "Акрида",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT57-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 6
+)
+Card.create(
+	name: "Биореактор",
+	rarity: "rare",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT58-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 4,
+	cost: 4,
+)
+Card.create(
+	name: "Броневые пластины",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT59-copy2.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 3,
+)
+Card.create(
+	name: "Волна исцеления",
+	rarity: "rare",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT60-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 4,
+	cost: 3,
+)
+Card.create(
+	name: "Заслуженный отдых",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT61-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 2,
+	cost: 2,
+)
+Card.create(
+	name: "Идентификация фей",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT62-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 2,
+	cost: 2,
+)
+Card.create(
+	name: "Исцеляющая",
+	rarity: "uncommon",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT63-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 5,
+)
+Card.create(
+	name: "Кайнасский ополченец",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT64-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 2,
+	cost: 3,
+)
+Card.create(
+	name: "Караульный",
+	rarity: "uncommon",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT65-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 2,
+)
+Card.create(
+	name: "Каринлина",
+	rarity: "rare",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT66-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 4,
+	cost: 2,
+)
+Card.create(
+	name: "Конструкция: Крепыш",
+	rarity: "common",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT67-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 2,
+	cost: 4,
+)
+Card.create(
+	name: "Крепыш",
+	rarity: "rare",
+	card_url: "http://berserk.ru/image/data/%D0%91%D0%B5%D1%80%D1%81%D0%B5%D1%80%D0%BA/Berserk_Heroes_set-7_cards-PRINT68-copy.png",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 3,
+)
+Card.create(
+	name: "name",
+	rarity: "rare",
+	card_url: "url",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 3,
+)
+Card.create(
+	name: "name",
+	rarity: "rare",
+	card_url: "url",
+	card_type: creature,
+	dropped_from_booster: true,
+	card_set_id: set.id,
+	rate: 3,
+	cost: 3,
+)
+
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
 # Card.create(name: "name", rarity: "rare", card_url: "url", card_type: creature, dropped_from_booster: true, card_set_id: set.id, rate: 3, cost: 3)
