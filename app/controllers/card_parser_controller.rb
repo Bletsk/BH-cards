@@ -1,43 +1,97 @@
 class CardParserController < ApplicationController
 	def index
-		response = HTTP.post("http://berserk.ru", params: {route: "lib/feed/cards"}, json: {state: {results_per_page: 1507, sort: "name", order: "DESC"}})
+		response = HTTP.post("http://berserk.ru", params: {route: "lib/feed/cards"}, json: {state: {results_per_page: 50, page: 1, sort: "name", order: "DESC"}})
 		raw_data = JSON.parse(response)["rendered"].split(' ' * 4).reject(&:empty?)
 		urls = raw_data.map { |v| v.match(/\"(?<url>\S+\d)\"/)["url"] }
 
 		cards = []
 
 		#urls.each do |url|
-		0.upto(50) do |i|
+		0.upto(30) do |i|
 		    page = Nokogiri::HTML(HTTP.get(urls[i]).to_s)
-		    id = urls[i].match(/\d+/)[0].to_i
-		    title = page.css(".desc-title h2").inner_html
-		    image = page.css(".card .image img").attr('src').inner_html
-		    rarity = page.css(".rarity").inner_html
-		    if rarity.include?("Частая")
-		    	rarity = "common"
-		    elsif rarity.include?("Необычная")
-		    	rarity = "uncommon"
-		    elsif rarity.include?("Редкая")
-		    	rarity = "rare"
-		    elsif rarity.include?("Ультраредкая")
-		    	rarity = "ultra"
-		    end
+				card_description = page.css(".description")
+				data_rows = card_description.css('p')
 
-		    cost = page.css('.col-md-2 p').inner_html
-		    cost_index = cost.index("Стоимость")
-		   	cost = cost[cost_index + 11..cost_index + 11].to_i if cost_index
-
-		   	set = page.css('.col-md-2 p a').inner_html
-		   	set = set[8..set.length - 1]
-		   	artist = ""
-		   	# set = set[8..set.length - 1].split("\n")
-		   	# artist = set[1] ? set[1].strip : "unknown artist"
-		   	# set = set[0] ? set[0].strip : "unknown set"
-		    		
-		    #todo
-		    cards.push({id: id, title: title, image: image, rarity: rarity, cost: cost, set: set, artist: artist})
+				cards << {
+					title: get_title(card_description),
+					flavor_text: get_flavor_text(data_rows),
+					rarity: get_rarity(data_rows),
+					card_set: get_set_name(data_rows),
+					number: get_number_in_set(data_rows),
+					artist: get_artist_name(data_rows),
+					cost: get_cost(data_rows),
+					attack: get_attack(data_rows),
+					health: get_health(data_rows)
+				}
 		end
 
 		render json: cards
+	end
+
+	def get_title (desc)
+		desc.css('h2').inner_html
+	end
+
+	def get_flavor_text (data_rows)
+		data_rows[0].css('em').inner_html
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_rarity (data_rows)
+		data_rows[1].inner_html.split('Редкость:').second.split("\n").first.strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_set_name (data_rows)
+		data_rows[2].css('a').inner_html.split('Выпуск:').second.strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_number_in_set (data_rows)
+		data_rows[3].inner_html.split('Номер:').second.strip.to_i
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_artist_name (data_rows)
+		data_rows[4].css('a').inner_html.gsub("\n", '').strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_faction (data_rows)
+		data_rows[5].inner_html.split('Стихия:').second.gsub("\n", '').strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_cost (data_rows)
+		data_rows[6].inner_html.gsub('Стоимость:', '').strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_health (data_rows)
+		data_rows[7].inner_html.gsub('Здоровье:', '').strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
+	end
+
+	def get_attack (data_rows)
+		data_rows[8].inner_html.gsub('Простой удар:', '').strip
+	rescue
+		p "Something wrong\n#{data_rows}"
+		'unknown'
 	end
 end

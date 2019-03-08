@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20181211213154) do
 
   create_table "card_classes", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_card_classes_on_name"
   end
 
   create_table "card_classes_cards", id: false, force: :cascade do |t|
@@ -29,16 +30,19 @@ ActiveRecord::Schema.define(version: 20181211213154) do
 
   create_table "card_rarities", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_card_rarities_on_name"
   end
 
   create_table "card_sets", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_card_sets_on_name"
   end
 
   create_table "card_types", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_card_types_on_name"
   end
 
   create_table "cards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -54,9 +58,14 @@ ActiveRecord::Schema.define(version: 20181211213154) do
     t.bigint "card_set_id"
     t.bigint "card_type_id"
     t.bigint "card_rarity_id"
+    t.index ["attack"], name: "index_cards_on_attack"
     t.index ["card_rarity_id"], name: "index_cards_on_card_rarity_id"
     t.index ["card_set_id"], name: "index_cards_on_card_set_id"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
+    t.index ["cost"], name: "index_cards_on_cost"
+    t.index ["dropped_from_booster"], name: "index_cards_on_dropped_from_booster"
+    t.index ["health"], name: "index_cards_on_health"
+    t.index ["name"], name: "index_cards_on_name"
   end
 
   create_table "cards_factions", id: false, force: :cascade do |t|
@@ -68,6 +77,7 @@ ActiveRecord::Schema.define(version: 20181211213154) do
 
   create_table "factions", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_factions_on_name"
   end
 
 end
