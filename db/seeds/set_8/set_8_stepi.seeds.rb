@@ -243,6 +243,91 @@ Card.create(
 )
 
 Card.create(
+  name: 'Наводчик банды',
+  card_url: '',
+  cost: 2,
+  attack: 2,
+  health: 3,
+  card_text: "(2): Выстрел на 2 в персонажа противника по его выбору.\n(Х)(Т): Х персонажей не могут быть выбраны целью заклинаний и способностей до конца хода.",
+  flavour_text: '"Кто следующий?"',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: rare,
+  card_type: creature,
+  card_classes: CardClass.where(name: 'Орк'),
+)
+
+Card.create(
+  name: 'Настройка скорости',
+  card_url: '',
+  cost: 1,
+  attack: 0,
+  health: 0,
+  card_text: "Выберите одно из:\n- Усовершенствуйте существо.\n- Механизм получает Рывок.",
+  flavour_text: '',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: common,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Ритуал'),
+)
+
+Card.create(
+  name: 'Неистовство',
+  card_url: '',
+  cost: 2,
+  attack: 0,
+  health: 0,
+  card_text: "Выбранное существо получает \"Не получает ран. Когда наносит раны ударом герою верните Неистовство с кладбища в руку\" до конца хода.",
+  flavour_text: 'Пробуди в себе дух берсерка!',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: rare,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Действие'),
+)
+
+Card.create(
+  name: 'Огнемётчик',
+  card_url: '',
+  cost: 5,
+  attack: 4,
+  health: 4,
+  card_text: "Найм: Ранить каждое другое существо на 1.",
+  flavour_text: 'Самое впечатляющее орудие разрушения — огонь. Он разрушает окончательно и бесповоротно.',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: uncommon,
+  card_type: creature,
+  card_classes: CardClass.where(name: 'Механизм'),
+)
+
+Card.create(
+  name: 'Огненный шар',
+  card_url: '',
+  cost: 4,
+  attack: 0,
+  health: 0,
+  card_text: "Выберите одно из:\n- Ранить всех существ на 1.\n- Ранить персонажа на 4.",
+  flavour_text: '',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: uncommon,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Волшебство'),
+)
+
+Card.create(
   name: 'Оптический прицел',
   card_url: '',
   cost: 2,
@@ -274,4 +359,55 @@ Card.create(
   card_rarity: common,
   card_type: creature,
   card_classes: CardClass.where(name: 'Орк'),
+)
+
+Card.create(
+  name: 'Ответ Дзара',
+  card_url: '',
+  cost: 2,
+  attack: 0,
+  health: 0,
+  card_text: "Выберите одно из:\n- Ранить персонажа на 3.\n- Ранить механизм на 5.",
+  flavour_text: '"Дзар да опалит тебя!"',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: uncommon,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Ритуал'),
+)
+
+Card.create(
+  name: 'Отчаянный выстрел',
+  card_url: '',
+  cost: 3,
+  attack: 0,
+  health: 0,
+  card_text: "Ранить персонажа на 3.\nЕсли в вашей руке нет карт, Отчаянный выстрел наносит на 2 раны больше.",
+  flavour_text: '"Врешь, не возьмешь!"',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: common,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Действие'),
+)
+
+Card.create(
+  name: 'Пески времени',
+  card_url: '',
+  cost: 1,
+  attack: 0,
+  health: 0,
+  card_text: "Сбросьте все карты (эта карта уже находится на кладбище, когда разыгрывается).\nВ начале вашего следующего хода возьмите столько же карт, сколько вы сбросили, и еще одну.",
+  flavour_text: '',
+  rate: 3,
+  dropped_from_booster: true,
+  card_set_id: 8,
+  factions: [faction],
+  card_rarity: uncommon,
+  card_type: magic,
+  card_classes: CardClass.where(name: 'Волшебство'),
 )
