@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 20181211213154) do
 
   create_table "card_types", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_card_types_on_name"
   end
 

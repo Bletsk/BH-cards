@@ -4,17 +4,17 @@ class CardsController < ApplicationController
 		@cards << Card.joins(:card_rarity).where(
 			card_set_id: 1,
 			dropped_from_booster: true,
-			card_rarity: CardRarity.find_by(name: Random.rand(8) == 0 ? "ultra" : "rare")
+			card_rarity: CardRarity.find_by(name: Random.rand(8) == 0 ? "Ультраредкая" : "Редкая")
 		).shuffle.first
 		@cards << Card.where(
 			card_set_id: 1,
 			dropped_from_booster: true,
-			card_rarity: CardRarity.find_by(name: "uncommon")
+			card_rarity: CardRarity.find_by(name: "Необычная")
 		).shuffle.first(3)
 		@cards << Card.where(
 			card_set_id: 1,
 			dropped_from_booster: true,
-			card_rarity: CardRarity.find_by(name: "common")
+			card_rarity: CardRarity.find_by(name: "Частая")
 		).shuffle.first(11)
 
 		@cards = @cards.flatten
@@ -73,7 +73,7 @@ class CardsController < ApplicationController
 			end
 			cards << _booster
 		end
-		
+
 		return cards
 	end
 

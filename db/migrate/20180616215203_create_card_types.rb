@@ -2,7 +2,6 @@ class CreateCardTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :card_types do |t|
     	t.string :name, null: false, index: true
-      t.timestamps
     end
 
     add_reference :cards, :card_type, index: true
