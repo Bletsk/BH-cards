@@ -17,30 +17,30 @@ ActiveRecord::Schema.define(version: 20190316155118) do
   enable_extension "pgcrypto"
 
   create_table "artists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.index ["value"], name: "index_artists_on_value"
   end
 
   create_table "card_sets", force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.index ["value"], name: "index_card_sets_on_value"
   end
 
   create_table "card_types", force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.index ["value"], name: "index_card_types_on_value"
   end
 
   create_table "rarities", force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.index ["value"], name: "index_rarities_on_value"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "fname", default: ""
     t.string "lname", default: ""
-    t.string "email"
-    t.string "password_digest"
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "lower((email)::text)", name: "index_unique_email_on_users", unique: true

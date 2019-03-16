@@ -3,8 +3,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
     create_table :users, id: :uuid do |t|
       t.string :fname, index: true, default: ''
       t.string :lname, index: true, default: ''
-      t.string :email, nil: false
-      t.string :password_digest, nil: false
+      t.string :email, null: false
+      t.string :password_digest, null: false
 
       t.timestamps
     end
