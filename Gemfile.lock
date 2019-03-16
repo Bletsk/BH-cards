@@ -50,7 +50,6 @@ GEM
     arel (8.0.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
-    browser (2.0.3)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (2.18.0)
@@ -90,6 +89,9 @@ GEM
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     pg (1.0.0)
+    pg_search (2.1.4)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     public_suffix (3.0.2)
     puma (3.12.0)
     rack (2.0.5)
@@ -150,13 +152,13 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  browser (= 2.0.3)
   byebug
   capybara (~> 2.13)
   database_cleaner
   figaro
   jbuilder (~> 2.5)
   pg (>= 0.18, < 2.0)
+  pg_search
   puma (~> 3.7)
   rails (~> 5.1.5)
   seedbank!
