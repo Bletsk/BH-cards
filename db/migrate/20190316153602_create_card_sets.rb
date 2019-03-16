@@ -1,9 +1,7 @@
 class CreateCardSets < ActiveRecord::Migration[5.1]
   def change
     create_table :card_sets do |t|
-    	t.string :name, null: false, index: true
+      t.string :value, index: true, unique: true, nil: false
     end
-
-    add_reference :cards, :card_set, index: true
   end
 end

@@ -39,6 +39,8 @@ gem "jquery-slick-rails"
 gem "figaro"
 gem "http"
 
+gem 'google-api-client'
+
 # For database cleaning (using in seeds)
 gem 'database_cleaner'
 # For seeds

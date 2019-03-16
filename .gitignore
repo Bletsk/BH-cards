@@ -17,6 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+/credentials.json
 
 # Ignore application configuration
 /config/application.yml
