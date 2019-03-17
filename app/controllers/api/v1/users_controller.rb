@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   def show
-    params.permit(:id)
-    user = User.where(id: params[:id])
+    userId = params.permit(:id)[:id]
+    user = User.where(id: userId)
                .select(:id, :fname, :lname, :email)
                .first
     render json: user, status: 200

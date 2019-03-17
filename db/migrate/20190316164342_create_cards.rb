@@ -15,11 +15,13 @@ class CreateCards < ActiveRecord::Migration[5.1]
       t.integer :card_set_id, null: false, index: true
       t.integer :rarity_id, null: false, index: true
       t.integer :card_type_id, null: false, index: true
+      t.uuid :user_id, null: false, index: true
 
       t.foreign_key :artists, on_delete: :restrict
       t.foreign_key :card_sets, on_delete: :restrict
       t.foreign_key :rarities, on_delete: :restrict
       t.foreign_key :card_types, on_delete: :restrict
+      t.foreign_key :users, on_delete: :restrict
 
       t.timestamps
     end
