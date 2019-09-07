@@ -104,9 +104,9 @@
 				<% pack.each do |card| %>
 					_pack.push({
 						name: '<%= card.name %>',
-						cost: <%= card.cost %>,
+						cost: <%= card.cost || 0 %>,
 						img_url: '<%= card.card_url %>',
-						rate: <%= card.rate %>
+						rate: <%= card.pick_rate %>
 					});
 				<% end %>
 				_round.push(_pack);

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class CardsController < ApplicationController
-  def index
-    @cards = init_generator
-    @heroes = get_heroes
+  def draft
+    sets = (1..4).map { |_| params[:set_id].to_i || 1 }
+    @cards = init_generator(sets)
+    @heroes = get_heroes(sets)
   end
 
   def show_cards
