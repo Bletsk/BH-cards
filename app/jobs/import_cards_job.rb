@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ImportCardsJob < ApplicationJob
-  SETS = { 1 => 86_886, 2 => '91064', 3 => '94104', 4 => '94105', 5 => '94106',
-           6 => '94108', 7 => '94111', 8 => '94116' }.freeze
-
+  SETS = { 1 => 86_886, 2 => 91_064, 3 => 94_104, 4 => 94_105, 5 => 94_106,
+           6 => 94_108, 7 => 94_111, 8 => 94_116 }.freeze
   PER_PAGE = 50
+
   queue_as :default
 
   def perform
