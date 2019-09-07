@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20190316164342) do
     t.integer "card_set_id", null: false
     t.integer "rarity_id", null: false
     t.integer "card_type_id", null: false
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_cards_on_artist_id"
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 20190316164342) do
     t.index ["health"], name: "index_cards_on_health"
     t.index ["rarity_id"], name: "index_cards_on_rarity_id"
     t.index ["title"], name: "index_cards_on_title"
+    t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
   create_table "rarities", force: :cascade do |t|
@@ -79,4 +81,5 @@ ActiveRecord::Schema.define(version: 20190316164342) do
   add_foreign_key "cards", "card_sets", on_delete: :restrict
   add_foreign_key "cards", "card_types", on_delete: :restrict
   add_foreign_key "cards", "rarities", on_delete: :restrict
+  add_foreign_key "cards", "users", on_delete: :restrict
 end

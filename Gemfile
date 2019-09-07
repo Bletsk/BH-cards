@@ -24,6 +24,9 @@ gem "figaro"
 gem 'database_cleaner'
 # For seeds
 gem 'seedbank', :git => 'https://github.com/jobtitude/seedbank.git', :branch => 'nested-folders'
+gem 'webpacker'
+gem 'foreman'
+gem 'turbolinks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

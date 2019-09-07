@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Берсерк.Герои - симулятор драфта</title>
+    <title>Фан-сайт по настольной ККИ "Берсерк.Герои"</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-	  <div class = "desktop-view__header">
-			<!-- <div class = 'mobile-view__logo-container'>
-				<%#= image_tag "logo1.png" %>
-			</div> -->
-			<div class = 'mobile-view__title-container'>
-				<div class = 'mobile-view__title'>Берсерк.Герои</div>
-				<div class = 'mobile-view__title-small'>Симулятор драфта</div>
-			</div>
-		</div>
-    <%= yield %>
+    <div class="container" data-behavior="vue">
+      <%= yield %>
+
+      <app></app>
+    </div>
   </body>
 </html>
