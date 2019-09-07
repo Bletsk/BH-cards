@@ -8,22 +8,12 @@ class Card < ApplicationRecord
     ultra: 3
   }
 
-  enum card_type: {
-    creature: 0,
-    spell: 1,
-    hero: 2,
-    event: 3,
-    land: 4,
-    weapon: 5,
-    armor: 6,
-    amulet: 7
-  }
-
-  enum card_class: {
-    elf: 0
-  }
-
   enum faction: {
-    forest: 0
+    forest: 0,
+    dark: 1,
+    swamp: 2,
+    plain: 3,
+    mountain: 4,
+    neutral: 5
   }
 end

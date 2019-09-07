@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class ImportCardsJob < ApplicationJob
-  SETS = { 1 => 86_886, 2 => 91_064, 3 => 94_104, 4 => 94_105, 5 => 94_106,
-           6 => 94_108, 7 => 94_111, 8 => 94_116 }.freeze
+  SETS = { 1 => 86_886, 2 => 91_064, 3 => 94_104, 4 => 94_105, 5 => 94_107,
+           6 => 94_108, 7 => 94_115, 8 => 94_116 }.freeze
   PER_PAGE = 50
 
   queue_as :default
 
   def perform
     current_page = 1
-    cards = []
+    current_set = 8
 
     loop do
       response = HTTP.post('https://berserk.ru',
@@ -18,15 +18,15 @@ class ImportCardsJob < ApplicationJob
                              results_per_page: PER_PAGE,
                              page: current_page,
                              sort: 'name',
-                             order: 'DESC',
-                             set: SETS[1]
+                             order: 'ASC',
+                             set: SETS[current_set]
                            } })
 
       raw_data = JSON.parse(response)['rendered'].split(' ' * 4).reject(&:empty?)
       urls = raw_data.map { |v| v.match(/\"(?<url>\S+\d)\"/)['url'] }
       current_page += 1
 
-      cards += urls.map do |url|
+      urls.map do |url|
         begin
           page = Nokogiri::HTML(HTTP.get(url).to_s)
           id = url.match(/\d+/)[0].to_i
@@ -34,20 +34,46 @@ class ImportCardsJob < ApplicationJob
           image = page.css('.card .image img').attr('src').inner_html
           rarity = page.css('.rarity').inner_html
           if rarity.include?('Частая')
-            rarity = 'common'
+            rarity = :common
           elsif rarity.include?('Необычная')
-            rarity = 'uncommon'
+            rarity = :uncommon
           elsif rarity.include?('Редкая')
-            rarity = 'rare'
+            rarity = :rare
           elsif rarity.include?('Ультраредкая')
-            rarity = 'ultra'
+            rarity = :ultra
           end
 
-          cost = page.css('.col-md-2 p').inner_html
-          cost_index = cost.index('Стоимость')
-          cost = cost[cost_index + 11..cost_index + 11].to_i if cost_index
+          cost_html = page.css('.col-md-2 p').inner_html
+          cost_index = cost_html.index('Стоимость')
+          cost = cost_html[cost_index + 11..cost_index + 11].to_i if cost_index
 
-          { id: id, title: title, image: image, rarity: rarity.to_sym, cost: cost }
+          faction_html = page.css('.col-md-2 p').inner_html
+          faction = faction_html.split('Стихия:')[1].split[0]
+          converted_faction = case faction
+                              when 'Леса'
+                                :forest
+                              when 'Тьма'
+                                :dark
+                              when 'Болота'
+                                :swamp
+                              when 'Степи'
+                                :plain
+                              when 'Горы'
+                                :mountain
+                              when 'Нейтральная'
+                                :neutral
+                              end
+
+          Card.create(
+            name: title,
+            card_url: image,
+            site_id: id,
+            rarity: rarity,
+            cost: cost,
+            faction: converted_faction,
+            dropped_from_booster: cost.present? || rarity == :common,
+            card_set: current_set
+          )
         rescue StandardError => e
           puts "Error parsing:\n#{url}\n#{e}"
           nil
@@ -56,7 +82,7 @@ class ImportCardsJob < ApplicationJob
       break if urls.length < PER_PAGE
     end
 
-    puts cards.first
-    puts cards.length
+    puts Card.count
+    puts Card.first
   end
 end
