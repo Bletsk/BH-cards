@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Card.create(name: 'Антар',
             rarity: :common,
             faction: :forest,

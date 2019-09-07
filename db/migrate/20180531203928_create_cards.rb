@@ -13,7 +13,7 @@ class CreateCards < ActiveRecord::Migration[5.1]
       t.integer :pick_rate, null: false, default: 3
       t.integer :cost
       t.boolean :dropped_from_booster, null: false, default: true
-  
+
       t.timestamps
     end
   end
