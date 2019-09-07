@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'http'
 
 class ApplicationController < ActionController::Base
@@ -6,7 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :detect_device_variant
 
   private
+
   def detect_device_variant
-    request.variant = [:phone, :tablet] if browser.device.mobile? || browser.device.tablet?
+    request.variant = %i[phone tablet] if browser.device.mobile? || browser.device.tablet?
   end
 end
