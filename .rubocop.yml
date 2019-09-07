@@ -12,3 +12,6 @@ Metrics/AbcSize:
 
 Style/Documentation:
   Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
