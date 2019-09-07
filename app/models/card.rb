@@ -1,12 +1,29 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-  belongs_to :card_set
-  belongs_to :card_type
-  has_and_belongs_to_many :elements
-  # after_initialize :init
+  enum rarity: {
+    common: 0,
+    uncommon: 1,
+    rare: 2,
+    ultra: 3
+  }
 
-  # def init
-  #   self.restricted_card = true if self.restricted_card.nil?
-  # end
+  enum card_type: {
+    creature: 0,
+    spell: 1,
+    hero: 2,
+    event: 3,
+    land: 4,
+    weapon: 5,
+    armor: 6,
+    amulet: 7
+  }
+
+  enum card_class: {
+    elf: 0
+  }
+
+  enum faction: {
+    forest: 0
+  }
 end
