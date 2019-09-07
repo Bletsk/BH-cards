@@ -81,12 +81,15 @@
 			<% round.each do |pack| %>
 				_pack = [];
 				<% pack.each do |card| %>
-					_pack.push({
+					_card = {
 						name: '<%= card.name %>',
-						cost: <%= card.cost %>,
 						img_url: '<%= card.card_url %>',
-						rate: <%= card.rate %> 
-					});
+						rate: <%= card.pick_rate %>
+					};
+					<% if card.cost.present? %>
+						_card['cost'] = <%= card.cost %>;
+					<% end %>
+					_pack.push(_card);
 				<% end %>
 				_round.push(_pack);
 			<% end %>
@@ -131,9 +134,11 @@
 	function pick_card(card){
 		let _card = {
 			name: card.name,
-			cost: card.cost,
 			amount: 1,
 			img_url: card.img_url
+		}
+		if (card.cost) {
+			_card.cost = card.cost;
 		}
 		pickedCards.push(_card);
 		formCardList();

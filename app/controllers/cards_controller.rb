@@ -7,7 +7,6 @@ class CardsController < ApplicationController
   end
 
   def show_cards
-    # render json: params[:set]
     set = params[:set]
     @cards = init_generator([set[0].to_i, set[1].to_i, set[2].to_i, set[3].to_i])
     @heroes = get_heroes([set[0].to_i, set[1].to_i, set[2].to_i, set[3].to_i])
@@ -19,28 +18,28 @@ class CardsController < ApplicationController
 
     is_hero_dropped = Random.rand(8).zero?
 
-    card_pull = Card.where('card_set_id = ? AND dropped_from_booster = true', set_id)
+    card_pull = Card.where(card_set: set_id, dropped_from_booster: true)
 
     if is_hero_dropped
-      hero = card_pull.where("card_type = 'hero'").sample
+      hero = card_pull.where(cost: nil).sample
       cards << hero
     end
 
     rare = if Random.rand(8).zero?
-             card_pull.where(rarity: 'ultra').where.not(card_type: 'hero').sample
+             card_pull.where(rarity: :ultra).where.not(cost: nil).sample
            else
-             card_pull.where(rarity: 'rare').where.not(card_type: 'hero').sample
+             card_pull.where(rarity: :rare).where.not(cost: nil).sample
            end
     cards << rare
 
-    card_pull.where(rarity: 'uncommon').where.not(card_type: 'hero').sample(3).each do |card|
+    card_pull.where(rarity: :uncommon).where.not(cost: nil).sample(3).each do |card|
       cards << card
     end
 
     common = if is_hero_dropped
-               card_pull.where(rarity: 'common').where.not(card_type: 'hero').sample(10)
+               card_pull.where(rarity: :common).where.not(cost: nil).sample(10)
              else
-               card_pull.where(rarity: 'common').where.not(card_type: 'hero').sample(11)
+               card_pull.where(rarity: :common).where.not(cost: nil).sample(11)
              end
     common.each do |card|
       cards << card
@@ -71,7 +70,7 @@ class CardsController < ApplicationController
     heroes_pull = []
 
     set_hash.each do |key, value|
-      heroes_pull << Card.where("card_set_id = ? AND card_type = 'hero'", key)
+      heroes_pull << Card.where(card_set: key, cost: nil)
       p key
       p value
     end
