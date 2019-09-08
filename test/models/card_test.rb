@@ -3,7 +3,9 @@
 require 'test_helper'
 
 class CardTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'should generate proper pack' do
+    cards = Card.generate_pack
+    assert 15, cards.count
+    assert 3, cards.where(rarity: :uncommon).count
+  end
 end
