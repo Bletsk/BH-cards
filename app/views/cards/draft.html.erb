@@ -1,36 +1,9 @@
-<div class = "desktop-view__header">
-	<div class = 'mobile-view__logo-container'>
-		<%= image_tag "logo1.png" %>
-	</div>
-	<div class = 'mobile-view__title-container'>
-		<div class = 'mobile-view__title'>Берсерк.Герои</div>
-		<div class = 'mobile-view__title-small'>Симулятор драфта</div>
-	</div>
-</div>
-<div class = "fluid-container">
-	<div class = "col-md-9">
-		<div class="row">
-			<% @cards.each_with_index do |card, index| %>
-				<% if index % 4 == 0 && index > 0 %>
-					</div>
-					<div class="row">
-				<% end %>
-				<div class="col-md-3">
-					<%= image_tag card.card_url %>
-				</div>
-			<% end %>
-		</div>
-	</div>
-	<div class = "col-md-3 block">
-		<div class = 'inside-block card-list'>
-			<span class = 'card-list__title'>
-				Моя колода
-			</span>
-			<div class = 'card-list__list-container'>
-				<ul class = 'card-list__list'>
-				</ul>
+<div class="container">
+	<div class="row">
+		<% @cards.each do |card| %>
+			<div style="width: 200px;" class="p-1">
+				<%= image_tag card.card_url, class: 'w-100' %>
 			</div>
-		</div>
+		<% end %>
 	</div>
 </div>
-<div class = 'zoom-card'></div>

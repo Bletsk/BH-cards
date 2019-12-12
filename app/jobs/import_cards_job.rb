@@ -2,14 +2,14 @@
 
 class ImportCardsJob < ApplicationJob
   SETS = { 1 => 86_886, 2 => 91_064, 3 => 94_104, 4 => 94_105, 5 => 94_107,
-           6 => 94_108, 7 => 94_115, 8 => 94_116 }.freeze
+           6 => 94_108, 7 => 94_115, 8 => 94_116, 9 => 94_117 }.freeze
   PER_PAGE = 50
 
   queue_as :default
 
   def perform
     current_page = 1
-    current_set = 8
+    current_set = 9
 
     loop do
       response = HTTP.post('https://berserk.ru',

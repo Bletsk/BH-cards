@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'http'
+require 'turbolinks/redirection'
 
 class ApplicationController < ActionController::Base
+  include Turbolinks::Redirection
   protect_from_forgery with: :exception
 
   before_action :detect_device_variant
