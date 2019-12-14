@@ -10,12 +10,6 @@ class CardsController < ApplicationController
     @heroes = Card.heroes(sets.uniq)
   end
 
-  def show_cards
-    sets = params[:set].map(&:to_i)
-    @cards = init_generator(sets)
-    @heroes = Card.heroes(sets.uniq)
-  end
-
   def sets
     {
       1 => 'Время героев',
