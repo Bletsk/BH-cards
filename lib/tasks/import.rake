@@ -51,6 +51,8 @@ namespace :import do
       urls.each do |url|
         page = Nokogiri::HTML(HTTP.get(url).to_s)
         id = url.match(/\d+/)[0].to_i
+        next if Card.exists?(site_id: id)
+
         title = page.css('.desc-title h2').inner_html
         next if IGNORED_CARDS.include?(title)
 
@@ -86,8 +88,6 @@ namespace :import do
                             when 'Нейтральная'
                               :neutral
                             end
-
-        next if Card.exists?(site_id: id)
 
         card = Card.create!(
           title: title,

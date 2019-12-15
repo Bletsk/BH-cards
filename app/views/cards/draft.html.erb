@@ -1,9 +1,17 @@
 <div class="container">
 	<div class="row">
-		<% @cards.each do |card| %>
-			<div style="width: 200px;" class="p-1">
-				<%= image_tag card.card_url, class: 'w-100' %>
-			</div>
+		<% @cards.each.with_index do |card, index| %>
+			<% if @current_set >= 9 && index == 0 && %w[rare ultra].include?(card.rarity) %>
+				<div class="p-1" style="max-width: 200px;" >
+					<span class="pickgradient">
+						<%= image_tag card.card_url, class: 'w-100', style: 'z-index: -1;' %>
+					</span>
+				</div>
+			<% else %>
+				<div class="p-1" style="max-width: 200px;" >
+					<%= image_tag card.card_url, class: 'w-100' %>
+				</div>
+			<% end %>
 		<% end %>
 	</div>
 </div>
