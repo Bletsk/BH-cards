@@ -6,32 +6,11 @@
 
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= javascript_pack_tag 'Index' %>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= sets[@current_set] %>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% sets.each do |id, name| -%>
-              <%= link_to name, draft_path(id), class: 'dropdown-item' %>
-            <% end %>
-          </div>
-        </li>
-        <li class="ml-3 nav-item">
-          <%= link_to 'Новый бустер', draft_path(@current_set), class: 'btn btn-primary' %>
-        </li>
-      </ul>
-    </div>
-    </nav>
     <%= yield %>
   </body>
 </html>
