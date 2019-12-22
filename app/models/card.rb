@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
+  has_many :decks
+
   enum rarity: {
     common: 0,
     uncommon: 1,

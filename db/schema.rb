@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,25 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_180_531_203_928) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+ActiveRecord::Schema.define(version: 2019_12_22_203332) do
 
-  create_table 'cards', force: :cascade do |t|
-    t.string 'title'
-    t.integer 'rarity', null: false
-    t.string 'card_url'
-    t.integer 'card_set', null: false
-    t.integer 'faction', null: false
-    t.integer 'pick_rate', default: 3, null: false
-    t.integer 'cost'
-    t.integer 'site_id', null: false
-    t.boolean 'dropped_from_booster', default: true, null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['card_set'], name: 'index_cards_on_card_set'
-    t.index ['faction'], name: 'index_cards_on_faction'
-    t.index ['rarity'], name: 'index_cards_on_rarity'
-    t.index ['site_id'], name: 'index_cards_on_site_id', unique: true
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.string "title"
+    t.integer "rarity", null: false
+    t.string "card_url"
+    t.integer "card_set", null: false
+    t.integer "faction", null: false
+    t.integer "pick_rate", default: 3, null: false
+    t.integer "cost"
+    t.integer "site_id", null: false
+    t.boolean "dropped_from_booster", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_set"], name: "index_cards_on_card_set"
+    t.index ["faction"], name: "index_cards_on_faction"
+    t.index ["rarity"], name: "index_cards_on_rarity"
+    t.index ["site_id"], name: "index_cards_on_site_id", unique: true
   end
+
+  create_table "deck_cards", id: false, force: :cascade do |t|
+    t.bigint "deck_id"
+    t.bigint "card_id"
+    t.integer "amount", default: 1, null: false
+    t.index ["card_id"], name: "index_deck_cards_on_card_id"
+    t.index ["deck_id", "card_id"], name: "index_deck_cards_on_deck_id_and_card_id"
+    t.index ["deck_id"], name: "index_deck_cards_on_deck_id"
+  end
+
+  create_table "decks", force: :cascade do |t|
+    t.string "name"
+    t.boolean "standard", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end
